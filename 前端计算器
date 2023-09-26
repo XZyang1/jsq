@@ -1,0 +1,183 @@
+<%@  page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@   page   import= "com.* "%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <table border="1">
+        <!--显示结果行-->
+        <tr><td colspan="4"><input id="inp1" type="text" value="" name="xianshi" style="text-align:right" /></td></tr>
+        <!--第二行-->
+        <tr>
+        	<td><input type="button" value="1" onclick="inputEvent(this)"/></td>
+            <td><input type="button" value="2" onclick="inputEvent(this)"/></td>
+            <td><input type="button"value="3" onclick="inputEvent(this)"/></td>
+            <td><input type="button" value="+" onclick="inputOper(this)"/></td>
+        </tr>
+        <!--第三行-->
+        <tr>
+        	<td><input type="button" value="4" onclick="inputEvent(this)"/></td>
+        	<td><input type="button" value="5" onclick="inputEvent(this)"/></td>
+            <td><input type="button" value="6" onclick="inputEvent(this)"/></td>
+            <td><input type="button" value="-" onclick="inputOper(this)"/></td>
+        </tr>  
+        <!--第四行-->
+        <tr>
+        	<td><input type="button"value="7" onclick="inputEvent(this)"/></td>
+            <td><input type="button" value="8" onclick="inputEvent(this)"/></td>
+        	<td><input type="button" value="9" onclick="inputEvent(this)"/></td>
+        	<td><input type="button"value="*" onclick="inputOper(this)"/></td>
+        </tr>
+        <!--第五行-->
+        <tr>
+        	<td><input type="button" value="0" onclick="inputEvent(this)"/></td>
+        	<td><input type="button" value="C" onclick="Clear(this)"/></td>
+            <td><input type="button" value="=" onclick="inputEquel(this)"/></td>
+            <td><input type="button" value="/" onclick="inputOper(this)"/></td>
+        </tr>
+        <tr>
+        	<td><input type="button" value="M+" onclick="inputM(this)"/></td>
+        	<td><input type="button" value="M-" onclick="inputM(this)"/></td>
+            <td><input type="button" value="MR" onclick="inputE(this)"/></td>
+            <td><input type="button" value="MC" onclick="inputC(this)"/></td>
+        </tr>
+        
+
+ 
+    </table>
+
+<script language="javascript" type="text/javascript">
+    function Calculator(){
+ 
+        this.jisuan=function(num1,num2,oper){
+            var res=0;
+            switch(oper){
+                case "+":
+                    res=num1+num2;
+                    break;
+                case "-":
+                    res=num1-num2;
+                    break;
+                case "*":
+                    res=num1*num2;
+                    break;
+                case "/":
+                    res=num1/num2;
+                    break;
+            }
+            return res;
+        }
+  
+    }
+
+    var calculator=new Calculator();
+
+    var val=0; //放置输入的值
+    var xval=0;//保存转换Number类型的值
+    var temp=0; //保存第一次输入的值   
+    var oper="";//保存输入的操作符
+    var a=0;//判断文本框字符长度
+    var b="";//保存等号
+    var tem=0;
+    var c=0;
+
+    function inputEvent(e){
+ 
+        val=e.value
+        var xsval=document.getElementById("inp1");
+        if(xsval.value=="0"){
+        	xsval.value="";
+        }else{
+        	a=a+1;
+        }
+        if(b=="="){
+        	xsval.value="";
+        	b="";
+        }
+        xsval.value+=val; //连续输入数字(String类型)
+        //转换Number类型
+        xval=parseFloat(xsval.value);
+        if(a>9){
+        	inp1.value="超出";
+        }
+     
+    }
+    
+    /*获取第一行的数据*/
+    function Clear(e){
+
+		var xsval=document.getElementById("inp1");
+     	if(e.value=="C"){
+            xsval.value="0";
+            a=0;
+        }
+    }
+
+    function inputOper(e){
+ 
+        oper=e.value;
+        if (e.value=="+"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";                       
+        }else if(e.value=="-"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";
+        }else if(e.value=="*"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";
+        }else if(e.value=="/"){
+            var xsval=document.getElementById("inp1");
+            temp=parseFloat(xsval.value);
+            xsval.value="";
+        }
+    }
+ 
+
+    function inputEquel(e){
+		b=e.value;
+        var xsval=document.getElementById("inp1");       
+        if(e.value=="="){
+            xsval.value=calculator.jisuan(temp,xval,oper);
+        }
+    }
+    function inputM(e){
+    	 
+        opera=e.value;
+        if (e.value=="M+"){
+            var xsval=document.getElementById("inp1");
+            tem=parseFloat(xsval.value);
+            c=c+tem;                       
+        }else if(e.value=="M-"){
+        	var xsval=document.getElementById("inp1");
+            tem=parseFloat(xsval.value);
+            c=c-tem; 
+        }
+        xsval.value=""
+    }
+    function inputE(e){
+       
+        if(e.value=="MR"){
+        	var xsval=document.getElementById("inp1");
+            xsval.value=c;
+        }
+    }
+    function inputC(e){
+		c=0;tem=0
+		var xsval=document.getElementById("inp1");
+		xsval.value="0";
+    }
+	
+
+</script>
+
+
+
+</body>
+</html>
